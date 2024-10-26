@@ -10,17 +10,7 @@ THUMBNAIL_DIR = PHOTO_DIR + "thumbnails/"
 os.makedirs(THUMBNAIL_DIR, exist_ok=True)
 
 def get_photos():
-    photos = []
-    for _, _, files in os.walk(PHOTO_DIR):
-        for file in files:
-            if file.endswith(".jpg"):
-                photos.append(file)
-    return photos
-
-def export_photo_list():
-    photos = get_photos()
-    with open(PHOTO_DIR + "data.json", "w") as f:
-        json.dump(photos, f)
+    return [file for file in os.listdir("page/photos/") if file.endswith(".jpg")]
 
 def make_thumbnails():
     photos = get_photos()
@@ -55,7 +45,6 @@ def edit_html(photos):
 
 
 if __name__ == "__main__":
-    export_photo_list()
     photos = get_photos()
     exif_data = {photo: get_exif_data(photo) for photo in photos}
     data = {"photo_list": photos} #, "exif_data": exif_data}
