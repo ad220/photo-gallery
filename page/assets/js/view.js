@@ -10,7 +10,8 @@ if (imgIndex === -1) {
 }
 
 document.getElementById('progression').innerHTML = imgIndex+1 + ' / ' + photoList.length;
-document.getElementById("img-display").setAttribute("src", "/photos/"+imgName);
+document.getElementById("img-container").setAttribute("style", "background-image: url(/photos/thumbnails/"+imgName+");");
+
 document.getElementById('close-button').addEventListener('click', function() {
     window.location = '/#'+imgName;
 });
@@ -30,3 +31,9 @@ document.getElementById('right-arrow-nav').addEventListener('click', function() 
 });
 document.getElementById('download-button').setAttribute("href", "/photos/"+imgName);
 document.getElementById('download-button').setAttribute("download", imgName);
+
+const fullResImg = new Image();
+fullResImg.src = "/photos/"+imgName;
+fullResImg.onload = function() {
+    document.getElementById("img-container").setAttribute("style", "background-image: url(/photos/"+imgName+");");
+};

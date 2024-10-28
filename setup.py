@@ -16,7 +16,7 @@ def make_thumbnails():
     photos = get_photos()
     for photo in photos:
         img = Image.open(PHOTO_DIR + photo)
-        img.thumbnail((300, 300), Image.BICUBIC)
+        img.thumbnail((2000, 400), Image.BICUBIC)
         img.save(THUMBNAIL_DIR + photo, quality=95)
 
 def get_exif_data(photo):
