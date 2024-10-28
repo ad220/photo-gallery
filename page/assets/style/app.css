@@ -4,3 +4,6 @@
     --primary-color: #e3783d;
     --secondary-color: #fcf1ea;
 }
+
+@font-face { font-family: Montserrat; src: url('/assets/fonts/montserrat.ttf'); } 
+@font-face { font-family: Montserrat; font-style: italic; src: url('/assets/fonts/monserrat_italic.ttf');}
