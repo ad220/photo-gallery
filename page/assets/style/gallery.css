@@ -1,12 +1,3 @@
-:root {
-	--background-color: white;
-	--text-color: black;
-    --primary-color: #ff5e00;
-    --secondary-color: #ffcaab;
-
-}
-
-
 * {
     box-sizing: border-box;
 }

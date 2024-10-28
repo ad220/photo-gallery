@@ -1,3 +1,5 @@
+@import url(/assets/style/app.css);
+
 * {
     box-sizing: border-box;
 }
@@ -52,14 +54,31 @@ html {
 }
 
 .nav-button {
+    color: var(--primary-color);
+    /* background-color: var(--secondary-color); */
+    &:hover {
+        box-shadow: 0 0 6px var(--primary-color);
+    }
+    transition: all 0.2s;
     cursor: pointer;
-    padding: 20px;
+    padding: 14px;
     text-align: center;
-    border: 1px solid black;
     border-radius: 30px;
     height: 60px;
     width: 60px;
     flex-shrink: 0;
+    flex-grow: 0;
+    & svg {
+        height: 30px;
+        width: auto;
+    }
+}
+
+#close-button {
+    padding: 17px;
+    & svg {
+        height: 24px;
+    }
 }
 
 .view-index {
