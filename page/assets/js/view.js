@@ -19,10 +19,10 @@ document.getElementById('download-button').setAttribute("href", "/photos/"+imgNa
 document.getElementById('download-button').setAttribute("download", imgName);
 
 const fullResImg = new Image();
-fullResImg.src = "/photos/"+imgName;
-fullResImg.onload = function() {
-    document.getElementById("img-container").setAttribute("style", "background-image: url(/photos/"+imgName+");");
-};
+fullResImg.addEventListener("load", function() {
+    document.getElementById("img-container").style.backgroundImage = "url(/photos/" + imgName + ")";
+});
+fullResImg.src = "/photos/" + imgName;
 
 function nextPhoto() {
     if (imgIndex === photoList.length-1) {
