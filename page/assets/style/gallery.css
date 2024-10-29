@@ -41,4 +41,14 @@ img {
     object-fit: cover;
     vertical-align: bottom;
 }
+
+@media screen and (max-width: 640px) {
+    .photo-container {
+        height: 150px;
+    }
+    .gallery-container li {
+        height: 150px;
+    }
+    
+}
   

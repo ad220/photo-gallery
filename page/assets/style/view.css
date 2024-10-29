@@ -23,14 +23,14 @@ html {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 20px;
-    height: 100px;
+    padding: 5px;
+    height: 50px;
     width: 100%;
     gap: 10px;
 }
 
 .view-display {
-    padding: 0 40px 0 40px;
+    padding: 0 5px;
     min-height: 0px;
     display: flex;
     justify-content: space-between;
@@ -58,27 +58,27 @@ html {
     color: var(--primary-color);
     /* background-color: var(--secondary-color); */
     &:hover {
-        box-shadow: 0 0 6px var(--primary-color);
+        box-shadow: 0 0 3px var(--primary-color);
     }
     transition: all 0.2s;
     cursor: pointer;
-    padding: 14px;
+    padding: 6px;
     text-align: center;
-    border-radius: 30px;
-    height: 60px;
-    width: 60px;
+    border-radius: 15px;
+    height: 30px;
+    width: 30px;
     flex-shrink: 0;
     flex-grow: 0;
     & svg {
-        height: 30px;
+        height: 18px;
         width: auto;
     }
 }
 
 #close-button {
-    padding: 17px;
+    padding: 8px;
     & svg {
-        height: 24px;
+        height: 14px;
     }
 }
 
@@ -99,8 +99,43 @@ html {
 
 #left-arrow-nav {
     order: 1;
+    display: none;
 }
 
 #right-arrow-nav {
     order: 3;
+    display: none;
+}
+
+@media screen and (min-width: 640px) {
+    #left-arrow-nav {
+        display: block;
+    }
+    #right-arrow-nav {
+        display: block;
+    }
+
+    .view-header {
+        padding: 10px;
+        height: 50px;
+    }
+
+    .nav-button {        
+        &:hover {
+            box-shadow: 0 0 6px var(--primary-color);
+        }
+        padding: 14px;
+        border-radius: 30px;
+        height: 60px;
+        width: 60px;
+        & svg {
+            height: 30px;
+        }
+    }
+
+    
+    
+    .view-display {
+        padding: 0 40px;
+    }
 }
