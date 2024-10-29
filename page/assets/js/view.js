@@ -1,4 +1,10 @@
-import data from '/photos/data.json' with {type: 'json'};
+const url = "/photos/data.json";
+
+const response = await fetch(url);
+if (!response.ok) {
+    throw new Error(`Response status: ${response.status}`);
+}
+const data = await response.json();
 
 const photoList = data.photo_list;
 const params = new URLSearchParams(document.location.search);
