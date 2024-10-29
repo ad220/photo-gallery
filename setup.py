@@ -10,7 +10,9 @@ THUMBNAIL_DIR = PHOTO_DIR + "thumbnails/"
 os.makedirs(THUMBNAIL_DIR, exist_ok=True)
 
 def get_photos():
-    return [file for file in os.listdir("page/photos/") if file.endswith(".jpg")]
+    photos = [file for file in os.listdir("page/photos/") if file.endswith(".jpg")]
+    photos.sort()
+    return photos
 
 def make_thumbnails():
     photos = get_photos()
