@@ -86,7 +86,7 @@ html {
     height: 60px;
     padding: 20px;
     text-align: center;
-    font-weight: 600;
+    font-weight: bold;
     color: var(--primary-color)
 }
 
