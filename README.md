@@ -23,6 +23,3 @@ python setup.py
 You can edit `template.html` to change the header and footer of the gallery page.
 
 You can also tweak the color theme in the `/page/assets/style/app.css` stylesheet.
-
-## Planned Features
-- Add EXIF data to the modal view
