@@ -32,13 +32,9 @@ def get_exif_data(photo):
 
     processed_exif = {}
 
-    # date format change from 'YYYY:DD:MM HH:MM:SS' -> 'DD mmmm YYYY'
     processed_exif["date"] = datetime.strptime(exif.get("DateTimeOriginal"), "%Y:%m:%d %H:%M:%S").strftime("%-d %B %-Y") if exif.get("DateTimeOriginal") else None
-
-    processed_exif["picture"] = {
-        "filename": photo,
-        "properties": f"{img.width}x{img.height} {round(os.path.getsize(PHOTO_DIR + photo)/1e6,1)}MB"
-    }
+    processed_exif["filename"] = photo
+    processed_exif["properties"] = f"{img.width}x{img.height} {round(os.path.getsize(PHOTO_DIR + photo)/1e6,1)}MB"
 
     camera_model = [exif.get("Make"), exif.get("Model")]
     camera_settings = []
@@ -46,10 +42,11 @@ def get_exif_data(photo):
     if exif.get("ExposureTime"): camera_settings.append(f"1/{int(1/exif.get('ExposureTime'))}s")
     if exif.get("FocalLength"): camera_settings.append(f"{int(exif.get('FocalLength'))}mm")
     if exif.get("ISOSpeedRatings"): camera_settings.append(f"ISO{exif.get('ISOSpeedRatings')}")
-    processed_exif["camera"] = {
-        "model": " ".join([x for x in camera_model if x]),
-        "settings": " ".join(camera_settings)
-    }
+    
+    processed_exif["camera"] = " ".join([x for x in camera_model if x])
+    processed_exif["settings"] = " ".join(camera_settings)
+
+    if processed_exif["camera"] == "": processed_exif["camera"] = "Unknown Camera"
 
     return processed_exif
 

@@ -1,3 +1,5 @@
+// Check url and corresponding photo
+
 const url = "/photos/data.json";
 
 const response = await fetch(url);
@@ -7,6 +9,7 @@ if (!response.ok) {
 const data = await response.json();
 
 const photoList = data.photo_list;
+const exifData = data.exif_data;
 const params = new URLSearchParams(document.location.search);
 const imgName = params.get("img");
 const imgIndex = photoList.indexOf(imgName);
@@ -15,20 +18,60 @@ if (imgIndex === -1) {
     window.location = '/';
 }
 
+
+// Set up content
+
 document.getElementById('progression').innerHTML = imgIndex+1 + ' / ' + photoList.length;
 document.getElementById("img-container").setAttribute("style", "background-image: url(/photos/thumbnails/"+imgName+");");
+
+document.getElementById("info-date").innerHTML = exifData[imgName].date;
+document.getElementById("info-filename").innerHTML = exifData[imgName].filename;
+document.getElementById("info-properties").innerHTML = exifData[imgName].properties;
+document.getElementById("info-camera").innerHTML = exifData[imgName].camera;
+document.getElementById("info-settings").innerHTML = exifData[imgName].settings;
+
+const fullResImg = new Image();
+fullResImg.src = "/photos/" + imgName;
+fullResImg.addEventListener("load", function() {
+    document.getElementById("img-container").style.backgroundImage = "url(/photos/" + imgName + ")";
+});
+
+var showInfo = false;
+
+function toggleInfo() {
+    showInfo = !showInfo;
+    sessionStorage.setItem("show-info", String(showInfo));
+    if (showInfo) {
+        document.getElementById('info-container').style.display = 'flex';
+        if (window.innerWidth < 640) {
+            document.getElementById('info-container').style.height = '200px';
+        } else {
+            document.getElementById('info-container').style.width = '300px';
+        }
+    } else {
+        document.getElementById('info-container').style.display = 'none';
+        if (window.innerWidth < 640) {
+            document.getElementById('info-container').style.height = '0';
+        } else {
+            document.getElementById('info-container').style.width = '0';
+        }
+    }
+}
+
+if (sessionStorage.getItem("show-info")) {
+    showInfo = sessionStorage.getItem("show-info") === "false";
+    toggleInfo();
+}
+
+
+// Set up user interaction
 
 document.getElementById('close-button').addEventListener('click', function() {
     window.location = '/#'+imgName;
 });
 document.getElementById('download-button').setAttribute("href", "/photos/"+imgName);
 document.getElementById('download-button').setAttribute("download", imgName);
-
-const fullResImg = new Image();
-fullResImg.addEventListener("load", function() {
-    document.getElementById("img-container").style.backgroundImage = "url(/photos/" + imgName + ")";
-});
-fullResImg.src = "/photos/" + imgName;
+document.getElementById('info-button').addEventListener('click', toggleInfo);
 
 function nextPhoto() {
     if (imgIndex === photoList.length-1) {
