@@ -12,12 +12,16 @@ header {
     padding: 30px;
     font-size: large;
     font-weight: normal;
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
+    margin: 0;
     padding: 0;
     &:after {
       content:'';
@@ -38,14 +42,17 @@ header {
     padding: 2px;
 }
 
-img {
+.gallery-container li a img {
     max-height: 100%;
     min-width: 100%;
     object-fit: cover;
     vertical-align: bottom;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 640px) {    
+    header {
+        padding: 20px;
+    }
     .photo-container {
         height: 150px;
     }
