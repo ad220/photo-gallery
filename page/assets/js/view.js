@@ -1,12 +1,11 @@
 // Check url and corresponding photo
+const data_url = "/photos/data.json";
 
-const url = "/photos/data.json";
-
-const response = await fetch(url);
-if (!response.ok) {
-    throw new Error(`Response status: ${response.status}`);
+const data_response = await fetch(data_url);
+if (!data_response.ok) {
+    throw new Error(`Response status: ${data_response.status}`);
 }
-const data = await response.json();
+const data = await data_response.json();
 
 const photoList = data.photo_list;
 const exifData = data.exif_data;
@@ -43,24 +42,71 @@ function toggleInfo() {
     sessionStorage.setItem("show-info", String(showInfo));
     if (showInfo) {
         document.getElementById('info-container').style.display = 'flex';
-        if (window.innerWidth < 640) {
-            document.getElementById('info-container').style.height = '200px';
-        } else {
-            document.getElementById('info-container').style.width = '300px';
-        }
     } else {
         document.getElementById('info-container').style.display = 'none';
-        if (window.innerWidth < 640) {
-            document.getElementById('info-container').style.height = '0';
-        } else {
-            document.getElementById('info-container').style.width = '0';
-        }
     }
 }
 
 if (sessionStorage.getItem("show-info")) {
     showInfo = sessionStorage.getItem("show-info") === "false";
     toggleInfo();
+}
+
+
+// Set up luminance histogram
+
+function drawHistogram(luminanceValues) {
+    const canvas = document.getElementById('histogram-canvas');
+    const style = window.getComputedStyle(canvas);
+    const textColor = style.getPropertyValue("--text-color");
+    const primaryColor = style.getPropertyValue("--primary-color");
+
+    canvas.width = 280;
+    canvas.height = 200;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const maxValue = Math.max(...luminanceValues);
+    const xStep = canvas.width / (luminanceValues.length - 1);
+
+    ctx.beginPath();
+
+    luminanceValues.forEach((value, index) => {
+        const x = index * xStep;
+        const y = canvas.height - ((luminanceValues[index-1] + value + luminanceValues[index+1]) / maxValue / 3) * canvas.height * 0.95 + 1;
+        ctx.moveTo(x, canvas.height);
+        ctx.lineTo(x, y);
+    });
+    
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = primaryColor;
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height - (luminanceValues[0] / maxValue) * canvas.height);
+
+    luminanceValues.forEach((value, index) => {
+        const x = index * xStep;
+        const y = canvas.height - ((luminanceValues[index-1] + value + luminanceValues[index+1]) / maxValue / 3) * canvas.height * 0.95;
+        ctx.lineTo(x, y);
+    });
+    
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = textColor;
+    ctx.stroke();
+}
+
+if (window.innerWidth >= 640) {
+    const histogram_url = `/photos/histograms/${imgName.substring(0, imgName.lastIndexOf('.'))}.json`;
+
+    const histogram_response = await fetch(histogram_url);
+    if (!histogram_response.ok) {
+        throw new Error(`Response status: ${histogram_response.status}`);
+    }
+    const histogram = await histogram_response.json();
+    drawHistogram(histogram);
 }
 
 
