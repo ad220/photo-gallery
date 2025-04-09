@@ -77,18 +77,27 @@ def edit_html(photos):
 
 
 if __name__ == "__main__":
+    print(f"Reading photos from `{PHOTO_DIR}` directory...")
     photos = get_photos()
+    print(f"{len(photos)} files found.")
+
+    print("Extracting EXIF data from photos...")
     exif_data = {photo: get_exif_data(photo) for photo in photos}
     data = {"photo_list": photos, "exif_data": exif_data}
+
+    print("Exporting HTML file and EXIF data...")
     edit_html(photos)
     # print(data)
     with open(PHOTO_DIR + "data.json", "w") as f:
         json.dump(data, f)
     
+    print("Generating luminance histogram for every photo...")
     for photo in photos:
         histogram = gen_histogram(photo)
         with open(PHOTO_DIR + f"histograms/{photo.split('.')[0]}.json", "w") as f:
             json.dump(histogram, f)
 
+    print("Generating thumbnails...")
     make_thumbnails()
 
+    print("Gallery setup done!")
