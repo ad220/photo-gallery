@@ -51,6 +51,14 @@ def get_exif_data(photo):
     return processed_exif
 
 
+def gen_histogram(photo):
+    img = Image.open(PHOTO_DIR + photo).convert('L')
+    histogram = img.histogram()
+    max_value = max(histogram)
+    histogram = [int(256*(value/max_value)) for value in histogram]
+    return histogram
+
+
 def edit_html(photos):
     with open("template.html", "r") as f:
         soup = BeautifulSoup(f, "html.parser")
@@ -76,6 +84,11 @@ if __name__ == "__main__":
     # print(data)
     with open(PHOTO_DIR + "data.json", "w") as f:
         json.dump(data, f)
+    
+    for photo in photos:
+        histogram = gen_histogram(photo)
+        with open(PHOTO_DIR + f"histograms/{photo.split('.')[0]}.json", "w") as f:
+            json.dump(histogram, f)
 
     make_thumbnails()
 
