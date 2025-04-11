@@ -5,6 +5,6 @@
     --secondary-color: #fcf1ea;
 }
 
-@font-face { font-family: Montserrat; src: local("Montserrat"), url('/fonts/montserrat.woff2'); font-style: normal;} 
-@font-face { font-family: Montserrat; src: local("Montserrat Bold"), url('/fonts/montserrat.woff2'); font-style: normal; font-weight: bold;} 
-@font-face { font-family: Montserrat; src: local("Montserrat Italic"), url('/fonts/montserrat_italic.woff2'); font-style: italic;}
+@font-face { font-family: Montserrat; src: local("Montserrat"), url('/assets/fonts/montserrat.woff2'); font-style: normal;} 
+@font-face { font-family: Montserrat; src: local("Montserrat Bold"), url('/assets/fonts/montserrat.woff2'); font-style: normal; font-weight: bold;} 
+@font-face { font-family: Montserrat; src: local("Montserrat Italic"), url('/assets/fonts/montserrat_italic.woff2'); font-style: italic;}
