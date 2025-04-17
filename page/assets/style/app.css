@@ -1,8 +1,8 @@
 :root {
 	--background-color: white;
 	--text-color: #101010;
-    --primary-color: #e3783d;
-    --secondary-color: #fcf1ea;
+    --primary-color: hsl(210, 95%, 38%);
+    --secondary-color: hsl(210, 100%, 92%);
 }
 
 @font-face { font-family: Montserrat; src: local("Montserrat"), url('/assets/fonts/montserrat.woff2'); font-style: normal;} 

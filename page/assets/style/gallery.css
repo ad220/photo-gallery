@@ -8,10 +8,16 @@ html {
     font-family: Montserrat
 }
 
+body {
+    margin: 0;
+    padding: 4px;
+}
+
 header {
     padding: 30px;
     font-size: large;
-    font-weight: normal;
+    font-weight: bold;
+    color: var(--primary-color);
     display: flex;
     gap: 20px;
     align-items: center;
@@ -30,12 +36,6 @@ header {
     }
 }
 
-.photo-container {
-    height: 300px;
-    flex-grow: 1;
-    padding: 2px;
-}
-
 .gallery-container li {
     height: 300px;
     flex-grow: 1;
@@ -43,6 +43,7 @@ header {
 }
 
 .gallery-container li a img {
+    border-radius: 6px;
     max-height: 100%;
     min-width: 100%;
     object-fit: cover;
@@ -52,9 +53,6 @@ header {
 @media screen and (max-width: 640px) {    
     header {
         padding: 20px;
-    }
-    .photo-container {
-        height: 150px;
     }
     .gallery-container li {
         height: 150px;
