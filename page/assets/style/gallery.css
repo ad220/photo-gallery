@@ -23,6 +23,16 @@ header {
     align-items: center;
 }
 
+footer {
+    margin: 20px auto;
+    font-size: small;
+    text-align: center;
+    color: #323232;
+    & a {
+        color: inherit;
+    }
+}
+
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
